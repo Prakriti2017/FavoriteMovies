@@ -1,0 +1,10 @@
+#movie-box{
+    border:0.3rem solid green ;
+    padding: 1rem 1rem;
+}
+
+#movie-form{
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+}
