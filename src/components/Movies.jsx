@@ -5,19 +5,18 @@ import "./Movies.css";
 import { isEmail, isNotEmpty } from "../util/Validation";
 
 const genreOptions = [
-    "Drama",
-    "Action",
-    "Animation",
-    "Comedy",
-    "Sci Fi",
-    "Historical",
-    "Horror",
-  ];
+  "Drama",
+  "Action",
+  "Animation",
+  "Comedy",
+  "Sci Fi",
+  "Historical",
+  "Horror",
+];
 
 const DEFAULT_GENRE = genreOptions[0];
 
 export default function Movies({ onMoviesAdded }) {
-
   const [inputValues, setInputValues] = useState({
     movieTitle: "",
     releaseDate: "",
@@ -35,22 +34,22 @@ export default function Movies({ onMoviesAdded }) {
   });
 
   const emailIsInvalid =
-  didTouch.studioEmail && !isEmail(inputValues.studioEmail) 
+    didTouch.studioEmail && !isEmail(inputValues.studioEmail);
 
-  const movieTitleIsInvalid = 
-  didTouch.movieTitle && !isNotEmpty(inputValues.movieTitle);
+  const movieTitleIsInvalid =
+    didTouch.movieTitle && !isNotEmpty(inputValues.movieTitle);
 
   const releaseDateIsInvalid =
-  didTouch.releaseDate && !isNotEmpty(inputValues.releaseDate);
+    didTouch.releaseDate && !isNotEmpty(inputValues.releaseDate);
 
   const movieRatingIsInvalid =
     didTouch.movieRating && !isNotEmpty(inputValues.movieRating);
 
   const isInputInvalid =
-    !isEmail(inputValues.studioEmail) ||
-    !isNotEmpty(inputValues.movieTitle) ||
-    !isNotEmpty(inputValues.releaseDate) ||
-    !isNotEmpty(inputValues.movieRating);
+    emailIsInvalid ||
+    movieTitleIsInvalid ||
+    releaseDateIsInvalid ||
+    movieRatingIsInvalid;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -92,7 +91,7 @@ export default function Movies({ onMoviesAdded }) {
     }));
     setDidTouch((prevTouch) => ({
       ...prevTouch,
-      [identifier]: true,
+      [identifier]: false,
     }));
   }
 
