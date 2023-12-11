@@ -1,15 +1,24 @@
-#movie-box{
-    border:0.3rem solid green ;
-    padding: 1rem 1rem;
-}
-
 #movie-form{
     display: flex;
     flex-direction:column;
     justify-content: space-between;
+    border:0.2rem solid black;
+    padding: 0.5rem 0.5rem;
 }
 
 .form-actions{
     display: flex;
     justify-content: center;
+}
+
+.select-input{
+    display: flex;
+    margin-bottom: 0.7rem;
+}
+
+.select-input label{
+    display: inline-block;
+    width: 8rem;
+    margin-bottom: 0.2rem;
+    padding: 0.1rem 0.2rem;
 }

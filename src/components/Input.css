@@ -1,5 +1,18 @@
-.form-inputs{
-    display:flex;
-    flex-direction: column;
-    padding:0.5rem 0.5rem;
+div {
+  margin-bottom: 0.2rem;
+}
+
+label {
+  display: inline-block;
+  width: 8rem;
+}
+
+.input-container label {
+  padding: 0.2rem 0.2rem;
+}
+
+.input-error {
+  margin: 0.2rem 0.2rem;
+  padding: 0.2rem;
+  color: red;
 }

@@ -1,52 +1,140 @@
-import { useState } from "react"
-import Input from "./Input"
-import "./Movies.css"
+import { useState } from "react";
+import Input from "./Input";
+import Select from "./Select";
+import "./Movies.css";
+import { isEmail, isNotEmpty } from "../util/Validation";
 
 export default function Movies({ onMoviesAdded }) {
 
-    const genreOptions = ['Drama', 'Action', 'Animation', 'Comedy', 'Sci Fi', 'Historical', 'Horror']
+  const genreOptions = [
+    "Drama",
+    "Action",
+    "Animation",
+    "Comedy",
+    "Sci Fi",
+    "Historical",
+    "Horror",
+  ];
 
-    const [inputValue, setInputValue] = useState({
-        movieTitle: '',
-        releaseDate: '',
-        movieRating: '',
-        genre: '',
-        studioEmail: ''
-    })
+  const [inputValues, setInputValues] = useState({
+    movieTitle: "",
+    releaseDate: "",
+    movieRating: "",
+    genre: "",
+    studioEmail: "",
+  });
 
-    function handleInputChange(identifier, event) {
-        setInputValue((prevInputs) => (
-            {
-                ...prevInputs,
-                [identifier]: event.target.value
-            }
-        ))
-    }
+  const [didTouch, setDidTouch] = useState({
+    movieTitle: false,
+    releaseDate: false,
+    movieRating: false,
+    genre: false,
+    studioEmail: false,
+  })
 
-    function handleSubmit(event) {
-        event.preventDefault()
-        console.log(inputValue)
-    }
+  const emailIsInvalid = didTouch.studioEmail && !isEmail(inputValues.studioEmail) && !isNotEmpty(inputValues.studioEmail)
+  const movieTitleIsInvalid = didTouch.movieTitle && !isNotEmpty(inputValues.movieTitle)
+  const releaseDateIsInvalid = didTouch.releaseDate && !isNotEmpty(inputValues.releaseDate)
+  const movieRatingIsInvalid = didTouch.movieRating && !isNotEmpty(inputValues.movieRating)
 
-    return (
-        <div id="movie-box">
-            <form id="movie-form" onSubmit={handleSubmit}>
-                <Input id="movie-title" label="Movie Title:" type="text" onChange={(event) => { handleInputChange('movieTitle', event) }} />
-                <Input id="release-date" label="Release Date:" type="date" onChange={(event) => { handleInputChange('releaseDate', event) }} />
-                <Input id="movie-rating" label="Movie Rating:" type="number" min={1} max={10} onChange={(event) => { handleInputChange('movieRating', event) }} />
-                <label htmlFor="genre">Genre:</label>
-                <select id="genre" onChange={(event) => { handleInputChange('genre', event) }}>
-                    {
-                        genreOptions.map((genre) => (
-                            <option key={genre} value={genre}>{genre}</option>
-                        ))
-                    }
-                </select>
-                <Input id="studio-email" label="Studio Email:" type="email" onChange={(event) => { handleInputChange('studioEmail', event) }} />
-                <div className="form-actions">
-                    <button type="submit"> Save </button>
-                </div>
-            </form>
-        </div>
-    )
+  function handleSubmit(event) {
+    event.preventDefault();
+    onMoviesAdded(inputValues)
+    setInputValues({
+      movieTitle: "",
+      releaseDate: "",
+      movieRating: "",
+      genre: "",
+      studioEmail: "",
+    });
+    setDidTouch({
+            movieTitle: false,
+            releaseDate: false,
+            movieRating: false,
+            genre: false,
+            studioEmail: false,
+  })
+  }
+
+  function handleInputBlur(identifier){
+    setDidTouch((prevTouch)=>({
+        ...prevTouch,
+        [identifier]:true
+    }))
+  }
+
+  function handleInputChange(identifier, event) {
+    setInputValues((prevInputs) => ({
+      ...prevInputs,
+      [identifier]: event.target.value,
+    }));
+    setDidTouch((prevTouch)=>({
+        ...prevTouch,
+        [identifier]:true
+    }))
+  }
+
+
+  return (
+    <form id="movie-form" onSubmit={handleSubmit}>
+      <Input
+        id="movie-title"
+        label="Movie Title:"
+        type="text"
+        value={inputValues.movieTitle}
+        onBlur={()=>handleInputBlur('movieTitle')}
+        onChange={(event) => 
+          handleInputChange("movieTitle", event)
+        }
+        error={movieTitleIsInvalid && 'Please enter a movie Title.'}
+      />
+      <Input
+        id="release-date"
+        label="Release Date:"
+        type="date"
+        value={inputValues.releaseDate}
+        onBlur={()=>handleInputBlur('releaseDate')}
+        onChange={(event) => {
+          handleInputChange("releaseDate", event);
+        }}
+        error={releaseDateIsInvalid && 'Please enter a release date.'}
+      />
+      <Input
+        id="movie-rating"
+        label="Movie Rating:"
+        type="number"
+        min="1"
+        max="10"
+        step="0.1"
+        value={inputValues.movieRating}
+        onBlur={()=>handleInputBlur('movieRating')}
+        onChange={(event) => 
+          handleInputChange("movieRating", event)
+        }
+        error={movieRatingIsInvalid && 'Please enter a rating.'}
+      />
+      <Select
+        id="genre"
+        label="Genre:"
+        options={genreOptions}
+        onChange={(event) =>
+          handleInputChange("genre", event)
+        }
+      />
+      <Input
+        id="studio-email"
+        label="Studio Email:"
+        type="email"
+        value={inputValues.studioEmail}
+        onBlur={()=>handleInputBlur('studioEmail')}
+        onChange={(event) =>
+          handleInputChange("studioEmail", event)
+        }
+        error={emailIsInvalid && 'Please enter a valid email.'}
+      />
+      <div className="form-actions">
+        <button type="submit"> Save </button>
+      </div>
+    </form>
+  );
 }

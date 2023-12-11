@@ -13,12 +13,12 @@ export default function DisplayMovies({ moviesInfo }) {
             <tbody>
                 {
                     moviesInfo.map((movie) => (
-                        <tr>
-                            <td>{movie.enteredMovieTitle}</td>
-                            <td>{movie.enteredReleaseDate}</td>
-                            <td>{movie.enteredMovieRating}</td>
-                            <td>{movie.enteredGenre}</td>
-                            <td>{movie.enteredStudioEmail}</td>
+                        <tr key={movie.movieId}>
+                            <td>{movie.movieTitle}</td>
+                            <td>{movie.releaseDate}</td>
+                            <td>{movie.movieRating}</td>
+                            <td>{movie.genre}</td>
+                            <td>{movie.studioEmail}</td>
                         </tr>
                     ))
                 }

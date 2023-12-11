@@ -1,10 +1,15 @@
 import './Input.css'
-
-export default function Input({id, label, ...props}){
+export default function Input({id, label, error, ...props}){
     return(
-        <div className="form-inputs" key={label}>
-            <label htmlFor={id}>{label}</label>
-            <input id={id} {...props} />
-        </div>
+        <>
+            <div className="input-container">
+                <label htmlFor={id}>{label}</label>
+                <input className='input-box' id={id} {...props} />
+            </div>
+            <div className="input-error">
+                {error && <p>{error}</p>}
+            </div>
+        </>
+
     )
 }
