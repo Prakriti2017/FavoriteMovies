@@ -1,7 +1,7 @@
-const isValidEmail =/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+const validEmailPattern =/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 export function isEmail(value) {
-  return value.trim() !== "" && value.match(isValidEmail);
+  return value.trim() !== "" && validEmailPattern.test(value)
 }
 
 export function isNotEmpty(value) {

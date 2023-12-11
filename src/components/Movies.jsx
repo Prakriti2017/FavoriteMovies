@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "./Input";
 import Select from "./Select";
 import "./Movies.css";
-import { isEmail, isNotEmpty } from "../util/Validation";
+import { isEmail, isNotEmpty } from "../util/validation";
 
 const genreOptions = [
   "Drama",
