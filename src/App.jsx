@@ -1,28 +1,27 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-import Movies from './components/Movies'
-import DisplayMovies from './components/DisplayMovies'
+import Movies from "./components/Movies";
+import DisplayMovies from "./components/DisplayMovies";
 
 function App() {
+  const [moviesInfo, setMovieInfo] = useState([]);
 
-  const [moviesInfo, setMovieInfo] = useState([])
-
-  function handleMoviesAdded(movieInfo){
-    setMovieInfo((prevInfo)=>{
-      const newMovieInfo={
-        movieId:Math.random(),
-        ...movieInfo
-      }
-      return ([...prevInfo,newMovieInfo])
-    })
+  function handleMoviesAdded(movieInfo) {
+    setMovieInfo((prevInfo) => {
+      const newMovieInfo = {
+        movieId: Math.random(),
+        ...movieInfo,
+      };
+      return [...prevInfo, newMovieInfo];
+    });
   }
-  
+
   return (
     <>
-      <Movies onMoviesAdded ={handleMoviesAdded}/>
-      <DisplayMovies moviesInfo={moviesInfo}/>
+      <Movies onMoviesAdded={handleMoviesAdded} />
+      <DisplayMovies moviesInfo={moviesInfo} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

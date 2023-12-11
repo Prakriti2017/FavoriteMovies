@@ -1,0 +1,9 @@
+.movies-table th {
+    padding-right: 1rem;
+    text-align: left;
+  }
+
+.movies-table td{
+  padding-right: 1rem;
+  text-align: left;
+}
