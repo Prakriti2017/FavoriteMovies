@@ -2,7 +2,7 @@ import Input from "./Input";
 import Select from "./Select";
 import useMovieForm from "../hooks/useMovieForm";
 import "./MovieForm.css";
-import { isEmail, isNotEmpty } from "../util/validation";
+import { isEmail, isNotEmpty, isBetween } from "../util/validation";
 
 const genreOptions = [
   "Drama",
@@ -40,7 +40,7 @@ export default function MovieForm({ onMoviesAdded }) {
     handleInputChange: handleMovieRatingChange,
     hasError:movieRatingHasError,
     reset: resetMovieRating
-  } = useMovieForm("", isNotEmpty);
+  } = useMovieForm("", (value)=> isNotEmpty(value) && isBetween(value,0,10));
 
   const {
     value: genre,
@@ -56,6 +56,11 @@ export default function MovieForm({ onMoviesAdded }) {
     reset: resetStudioEmail
   } = useMovieForm("", isEmail);
 
+  const isAnyFieldEmptyAndUntouched =
+  (!movieTitleHasError && movieTitle === '') ||
+  (!releaseDateHasError && releaseDate === '') ||
+  (!movieRatingHasError && movieRating === '') ||
+  (!studioEmailHasError && studioEmail === '');
 
   const isInputInvalid = 
   movieRatingHasError || 
@@ -66,7 +71,7 @@ export default function MovieForm({ onMoviesAdded }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (isInputInvalid) {
+    if (isInputInvalid || isAnyFieldEmptyAndUntouched) {
       return;
     }
 
@@ -110,13 +115,11 @@ export default function MovieForm({ onMoviesAdded }) {
         id="movie-rating"
         label="Movie Rating:"
         type="number"
-        min="1"
-        max="10"
         step="0.1"
         value={movieRating}
         onBlur={handleMovieRatingBlur}
         onChange={handleMovieRatingChange}
-        error={movieRatingHasError && "Please enter a rating."}
+        error={movieRatingHasError && "Please enter a valid rating (0-10)."}
       />
       <Select
         id="genre"
@@ -135,7 +138,7 @@ export default function MovieForm({ onMoviesAdded }) {
         error={studioEmailHasError && "Please enter a valid email."}
       />
       <div className="form-actions">
-        <button type="submit" disabled={isInputInvalid}>
+        <button type="submit" disabled={isInputInvalid || isAnyFieldEmptyAndUntouched}>
           {" "}
           Save{" "}
         </button>

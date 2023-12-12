@@ -7,3 +7,7 @@ export function isEmail(value) {
 export function isNotEmpty(value) {
   return value.trim() !== "";
 }
+
+export function isBetween(value,min,max){
+  return value>=min && value<=max
+}
