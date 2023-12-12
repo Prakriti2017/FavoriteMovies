@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import Movies from "./components/Movies";
+import MovieForm from "./components/MovieForm";
 import DisplayMovies from "./components/DisplayMovies";
 
 function App() {
-  const [moviesInfo, setMovieInfo] = useState([]);
+  const [moviesInfo, setMoviesInfo] = useState([]);
 
   function handleMoviesAdded(movieInfo) {
-    setMovieInfo((prevInfo) => {
+    setMoviesInfo((prevInfo) => {
       const newMovieInfo = {
         movieId: Math.random(),
         ...movieInfo,
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <>
-      <Movies onMoviesAdded={handleMoviesAdded} />
+      <MovieForm onMoviesAdded={handleMoviesAdded} />
       <DisplayMovies moviesInfo={moviesInfo} />
     </>
   );
