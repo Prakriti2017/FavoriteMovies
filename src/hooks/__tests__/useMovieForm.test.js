@@ -1,4 +1,4 @@
-import useMovieForm from './useMovieForm'
+import useMovieForm from '../useMovieForm'
 import { renderHook ,act} from '@testing-library/react'
 
 describe('useMovieForm hook',()=>{

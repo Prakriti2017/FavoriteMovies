@@ -1,14 +1,17 @@
 import '@testing-library/jest-dom'
-import { render } from "@testing-library/react"
+import { render, fireEvent } from "@testing-library/react"
 import App from "../App"
 
 describe('App component',()=>{
 
-    test()
-
     test("Renders the main page", () => {
-        render(<App />)
-        expect(true).toBeTruthy()
+        const {getByLabelText}=render(<App />)
+        const title = getByLabelText('Movie Title:')
+    
+        fireEvent.change(title, {target: {value: 'ddlj'}})
+        
+        expect(title.value).toBe('ddlj')
+
     })
 
 })

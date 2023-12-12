@@ -1,5 +1,4 @@
 import { isEmail, isNotEmpty } from "../validation";
-import {render,screen} from '@testing-library/react'
 
 describe("IsEmail validation function ", ()=>{
     test("returns true for valid email", ()=>{
