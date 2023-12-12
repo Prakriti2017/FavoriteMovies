@@ -25,7 +25,6 @@ export default function useMovieForm(defaultValue, validationFn = () => true) {
     handleInputBlur,
     handleInputChange,
     hasError: didTouch && !InputValueIsValid,
-    setDidTouch,
-    reset,
+    reset
   };
 }
