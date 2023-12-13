@@ -2,7 +2,7 @@ import Input from "./Input";
 import Select from "./Select";
 import useMovieForm from "../hooks/useMovieForm";
 import "./MovieForm.css";
-import { isEmail, isNotEmpty, isBetween } from "../util/validation";
+import { isEmail, isNotEmpty, isBetween } from "../util/validation.js";
 
 const genreOptions = [
   "Drama",
