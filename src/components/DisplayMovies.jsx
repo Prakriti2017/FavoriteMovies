@@ -1,4 +1,5 @@
 import './DisplayMovies.css'
+import formatDate from '../util/formatDate';
 
 export default function DisplayMovies({ moviesInfo }) {
   return (
@@ -16,7 +17,7 @@ export default function DisplayMovies({ moviesInfo }) {
         {moviesInfo.map((movie) => (
           <tr key={movie.movieId}>
             <td>{movie.movieTitle}</td>
-            <td>{movie.releaseDate}</td>
+            <td>{formatDate(movie.releaseDate)}</td>
             <td>{movie.movieRating}</td>
             <td>{movie.genre}</td>
             <td>{movie.studioEmail}</td>
