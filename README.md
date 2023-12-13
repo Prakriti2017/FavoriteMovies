@@ -9,7 +9,7 @@ This application allows users to enter information about their favorite movies.
 * ReactJS
 
 ## NPM version 
-- v20.10.0
+- v20
 
 ## Building and running:
 
