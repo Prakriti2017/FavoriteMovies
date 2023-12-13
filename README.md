@@ -8,7 +8,7 @@ This application allows users to enter information about their favorite movies.
 ## Technologies Used
 * ReactJS
 
-## Version required
+## NPM version 
 - v20.10.0
 
 ## Building and running:
